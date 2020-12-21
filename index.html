@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>大事件-首页</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+        <div class="search_form fl">
+            <input type="text" class="search_txt" placeholder="黑洞照片">
+            <button class="search_btn"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="link_info fr">
+            <a href="#"><i class="fa fa-angle-right"></i>&nbsp;&nbsp;网站地图</a><br>
+            <a href="#"><i class="fa fa-angle-right"></i>&nbsp;&nbsp;招聘信息</a>
+        </div>
+    </div>
+
+    <div class="menu_con">
+        <div class="menu">
+            <div class="menu_collapse fl">
+                <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
+                <!-- 下拉菜单 -->
+                <ul class="level_two"></ul>
+            </div>
+            <!-- 固定导航栏 -->
+            <ul class="left_menu fl"></ul>
+            <ul class="right_menu fr">
+                <li><a href="#">科技专题</a></li>
+                <li><a href="#">财经专题</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_con clearfix">
+        <div class="left_con">
+            <ul class="focus_list"></ul>
+            <div class="common_title">
+                <h3><i class="fa fa-edit"></i> 最新资讯</h3>
+                <a href="#" class="more"><i class="fa fa-angle-double-right"></i></a>
+            </div>
+            <!-- 页面主体部分数剧展示 -->
+            <div class="common_news"></div>
+        </div>
+        <div class="right_con">
+            <!-- 一周热门排行 -->
+            <div class="common_wrap">
+                <h3><i class="fa fa-bar-chart"></i> 一周热门排行</h3>
+                <ul class="content_list hotrank_list"></ul>
+            </div>
+            <!-- 最新评论 -->
+            <div class="common_wrap">
+                <h3><i class="fa fa-commenting-o"></i> 最新评论</h3>
+                <ul class="content_list comment_list"></ul>
+            </div>
+            <!-- 焦点关注 -->
+            <div class="common_wrap">
+                <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
+                <ul class="content_list guanzhu_list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer clearfix">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
+        <p>电话：0755-****888 粤ICP备*******8号</p>
+    </div>
+
+    <!-- 导入模板引擎js文件 -->
+    <script src="./js/template-web.js"></script>
+    <!-- 引入jq文件 -->
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="./js/http.js"></script>
+    <!-- 热点图模版引擎 -->
+    <script id="temp" type="text/html">
+        {{each}}
+        <li data-id='{{$value.id}}'>
+            <a href="#"><img src="{{$value.cover}}" alt=""></a>
+            <p>{{$value.title}}</p>
+        </li>
+        {{/each}}
+    </script>
+    <!-- 一周热门排行模板引擎 -->
+    <script id="temp1" type="text/html">
+        {{each}}
+        <li data-id='{{$value.id}}'><span>{{$index+1}}</span><a href="#">{{$value.title}}</a></li>
+        {{/each}}
+    </script>
+    <!-- 页面主体数据展示模板引擎 -->
+    <script id="temp2" type="text/html">
+        {{each}}
+        <div class="common_news_list" data-id="{{$value.id}}">
+            <a href="#" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
+            <h4><a href="#">{{$value.title}} </a></h4>
+            <p>{{@ $value.content}}
+            </p>
+            <div class="new_info">
+                <span>标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读(
+                    {{$value.read}}
+                    )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )</span>
+                <b>发布于 {{$value.date}} 12:18:58</b>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <!-- 最新评论 -->
+    <script id="temp3" type="text/html">
+        {{each}}
+        <li data-id='{{$value.id}}'>
+            <span>{{$value.author.charAt(0)}}</span>
+            <b><em>{{$value.author}}</em> {{$value.date.charAt(5)}}月({{$value.time}})说:</b>
+            <strong>{{$value.intro}}</strong>
+        </li>
+        {{/each}}
+    </script>
+    <!-- 焦点关注模板引擎 -->
+    <script id="temp4" type="text/html">
+        {{each}}
+        <li data-id='{{$value.id}}'><a href="#">{{$value.intro}}</a></li>
+        {{/each}}
+    </script>
+    <!-- 下拉菜单模板引擎 -->
+    <script id="temp5" type="text/html">
+        {{each}}
+        <li data-id='{{$value.id}}'><a href="#">{{$value.name}}</a></li>
+        {{/each}}
+    </script>
+    <!-- 固定导航模板引擎 -->
+    <script id="temp6" type="text/html">
+        <li class="up"></li>
+        {{each}}
+        <li data-id='{{$value.id}}'><a href="#">{{$value.name}}</a></li>
+        {{/each}}
+    </script>
+    <script>
+        $(function() {
+            // 加载热点图
+            $.ajax({
+                type: 'get',
+                url: port.cont_hot,
+                success: res => {
+                    if (res.code == 200) {
+                        let db = template('temp', res.data)
+                        $('.focus_list').html(db)
+
+                        $('.focus_list').children('li').eq(0).addClass('first')
+                    }
+                }
+            })
+
+            // 加载一周热门排行模板
+            $.ajax({
+                type: 'get',
+                url: port.cont_top,
+                success: res => {
+                    if (res.code == 200) {
+                        let db = template('temp1', res.data)
+                        $('.hotrank_list').html(db)
+                        $('.hotrank_list li:eq(0)').find('span').addClass('first')
+                        $('.hotrank_list li:eq(1)').find('span').addClass('second')
+                        $('.hotrank_list li:eq(2)').find('span').addClass('third')
+                    }
+                }
+            })
+
+            // 加载页面主体部分
+            $.ajax({
+                type: 'get',
+                url: port.cont_latest,
+                success: res => {
+                    if (res.code == 200) {
+                        let db = template('temp2', res.data)
+                        $('.common_news').html(db)
+                    }
+                }
+            })
+
+            // 加载页面中的最新评论数据展示
+            $.ajax({
+                type: 'get',
+                url: port.cont_news,
+                success: res => {
+                    if (res.code == 200) {
+                        let db = template('temp3', res.data)
+                        $('.comment_list').html(db)
+                    }
+                }
+            })
+
+            // 加载页面中的焦点关注数据展示
+            $.ajax({
+                type: 'get',
+                url: port.cont_focus,
+                success: res => {
+                    if (res.code == 200) {
+                        // console.log(res);
+                        let db = template('temp4', res.data)
+                        $('.guanzhu_list').html(db)
+                    }
+                }
+            })
+
+            // 加载下拉和固定菜单的数据，通过模板引擎展示到页面
+            $.ajax({
+                type: 'get',
+                url: port.cont_article,
+                success: res => {
+                    if (res.code == 200) {
+                        let db = template('temp5', res.data)
+                        let db1 = template('temp6', res.data)
+                        $('.left_menu').html(db)
+                        $('.level_two').html(db1)
+                    }
+                }
+            })
+
+            // 点击菜单中的li，携带id跳转到列表页
+            $('.level_two').on('click', 'li', function() {
+                let id = $(this).attr('data-id')
+                $(this).children('a').attr('href', './list.html?id=' + id)
+            })
+
+            // 点击菜单中的li，携带id跳转到列表页
+            $('.left_menu').on('click', 'li', function() {
+                let id = $(this).attr('data-id')
+                $(this).children('a').attr('href', './list.html?id=' + id)
+            })
+
+            // 点击类为.focus_list中的li，携带id跳转到数据详情页
+            $('.focus_list').on('click', 'li', function() {
+                let id = $(this).attr('data-id')
+                $(this).children('a').attr('href', './article.html?id=' + id)
+            })
+
+            // 点击类为.hotrank_list中的li，携带id跳转到数据详情页
+            $('.hotrank_list').on('click', 'li', function() {
+                let id = $(this).attr('data-id')
+                $(this).children('a').attr('href', './article.html?id=' + id)
+            })
+
+            // 点击.common_news_list中的类为.common_news_list，携带id跳转到数据详情页
+            $('.common_news').on('click', '.common_news_list', function() {
+                let id = $(this).attr('data-id')
+                location.href = './article.html?id=' + id
+            })
+
+            // 点击类为.guanzhu_list中的li，携带id跳转到数据详情页
+            $('.guanzhu_list').on('click', 'li', function() {
+                let id = $(this).attr('data-id')
+                $(this).children('a').attr('href', './article.html?id=' + id)
+            })
+        })
+    </script>
+</body>
+
+</html>
